@@ -13,6 +13,7 @@ def get_fullname() -> str:
 
 
 def home(request: HttpRequest) -> HttpResponse:
+    print(f"{vars(request)}  ==")
     full_name = get_fullname()
     text = f"""
         <h1>"Изучаем django"</h1>
@@ -46,7 +47,8 @@ items = [
 def get_item(request: HttpRequest, id: int) -> HttpResponse:
     for item in items:
         if item['id'] == id:
-            text = f'наименование:{item["name"]}, количество: {item["quantity"]}'
+            text = f'''наименование:{item["name"]}, количество: {item["quantity"]} <br>
+             <a href = /items> назад к списку товаров</a>'''
             break
         else:
             text = f'товар с id = {id} не найден!'
@@ -59,6 +61,9 @@ def get_items(request: HttpRequest) -> HttpResponse:
         # s =s + f'<li> {item['name']} : {item['quantity']} </li>'
         # s = s + '<a href = ./item/'+ str(item['id']) +'><li>наименование: ' + item['name'] + ', количество: ' + str(item['quantity']) + '</li></a>'
         # href_text = f"<a href = ./item/{str(item['id'])}></a>"
-        text = text + f"<a href = /item/{str(item['id'])}><li>наименование:{item['name']}, количество: {item['quantity']}</li></a>"
+        text = text + f'''<a href = /item/{str(item['id'])}>
+                        <li>наименование:{item['name']}, количество: {item['quantity']}</li>
+                        </a>
+                        '''
         # href_text = href_text + f"<a href = ./item/{str(item['id'])}>{text}</a>"
     return HttpResponse(f"<ol>{text}</ol>")
