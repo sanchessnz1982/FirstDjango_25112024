@@ -30,3 +30,20 @@ def about(request:HttpRequest)->HttpResponse:
           </br> 
     """
     return HttpResponse(text)
+
+items = [
+   {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
+   {"id": 2, "name": "Куртка кожаная" ,"quantity":2},
+   {"id": 5, "name": "Coca-cola 1 литр" ,"quantity":12},
+   {"id": 7, "name": "Картофель фри" ,"quantity":0},
+   {"id": 8, "name": "Кепка" ,"quantity":124},
+]
+
+
+def get_item(request:HttpRequest, id:int)->HttpResponse:
+    for item in items:
+        if item['id'] == id:
+            text = f'наименование:{item["name"]}, количество: {item["quantity"]} '
+            break
+        else: text = f'товар с id = {id} не найден!'
+    return HttpResponse(text)
