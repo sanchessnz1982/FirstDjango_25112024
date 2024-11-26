@@ -10,7 +10,7 @@
     </header>
 <h2>Список товаров</h2>
 {% for item in items  %}
-	<ol><a href="../item/{{ item.id }}">Наименование: {{ item.name }}, количество: {{ item.quantity }}</ol></a>
+	<ol><a href="../item/{{ item.id }}">Наименование: {{ item.name }}, количество: {{ item.count }}</ol></a>
 {% empty %}
 
 {% endfor %}

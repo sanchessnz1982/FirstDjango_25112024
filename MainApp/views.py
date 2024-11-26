@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
+from MainApp.models import Item
 
 
 # Create your views here.
@@ -57,7 +58,8 @@ items = [
 #   return HttpResponse(text)
 
 def get_item(request: HttpRequest, id: int) -> HttpResponse:
-    item = next((item for item in items if item["id"] == id), None)
+    #item = next((item for item in items if item["id"] == id), None)
+    item = Item.objects.get(id = id)
     if item is not None:
         context = {
             "item":item
@@ -79,5 +81,6 @@ def get_item(request: HttpRequest, id: int) -> HttpResponse:
 #   return HttpResponse(f"<ol>{text}</ol>")
 
 def get_items(request:HttpRequest)->HttpResponse:
-    context = {"items":items}
+    items_manager = Item.objects.all()
+    context = {"items":items_manager}
     return  render(request, 'items.html', context=context)
