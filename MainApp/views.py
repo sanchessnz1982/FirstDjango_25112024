@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
-from django.template.context_processors import request
+
 
 # Create your views here.
 # NAME = 'Ващенко Александр Сергеевич'
