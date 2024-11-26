@@ -12,8 +12,6 @@
 <ol>
 {% for item in items  %}
 	<li><a href="../item/{{ item.id }}">Наименование: {{ item.name }}, количество: {{ item.count }}</li></a>
-{% empty %}
-
 {% endfor %}
 </ol>
 
