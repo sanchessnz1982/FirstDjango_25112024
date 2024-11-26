@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
 from django.template.context_processors import request
 
 # Create your views here.
@@ -18,17 +18,23 @@ def home(requests:HttpRequest)->HttpResponse:
 
 
 
+#def about(request: HttpRequest) -> HttpResponse:
+#    text = f"""
+#          <br>
+#          Имя:<b>{author["FirstName"]}</b><br>
+#         Отчество:<b>{author['MiddleName']}</b><br>
+#         Фамилия:<b>{author["LastName"]}</b><br>
+#         Телефон:<b>{author["Telephone"]}</b><br>
+#         электронный адрес:<b>{author["Email"]}</b><br>
+#         </br>
+#   """
+#   return HttpResponse(text)
+
 def about(request: HttpRequest) -> HttpResponse:
-    text = f"""
-          <br>
-          Имя:<b>{author["FirstName"]}</b><br>
-          Отчество:<b>{author['MiddleName']}</b><br>
-          Фамилия:<b>{author["LastName"]}</b><br>
-          Телефон:<b>{author["Telephone"]}</b><br>
-          электронный адрес:<b>{author["Email"]}</b><br>
-          </br> 
-    """
-    return HttpResponse(text)
+    context = dict(FirstName='Александр', MiddleName='Сергеевич', LastName='Ващенко', Telephone='+79227026677',
+              Email='sanchessnz@mail.ru')
+    return render(request, "about.html", context=context)
+
 
 
 items = [
@@ -40,26 +46,38 @@ items = [
 ]
 
 
+#def get_item(request: HttpRequest, id: int) -> HttpResponse:
+#    for item in items:
+#        if item['id'] == id:
+#            text = f'''наименование:{item["name"]}, количество: {item["quantity"]} <br>
+#             <a href = /items> назад к списку товаров</a>'''
+#            break
+#       else:
+#           text = f'товар с id = {id} не найден!'
+#   return HttpResponse(text)
+
 def get_item(request: HttpRequest, id: int) -> HttpResponse:
-    for item in items:
-        if item['id'] == id:
-            text = f'''наименование:{item["name"]}, количество: {item["quantity"]} <br>
-             <a href = /items> назад к списку товаров</a>'''
-            break
-        else:
-            text = f'товар с id = {id} не найден!'
-    return HttpResponse(text)
+    item = next((item for item in items if item["id"] == id), None)
+    if item is not None:
+        context = {
+            "item":item
+        }
+        return render(request, "item.html", context)
+    return HttpResponseNotFound(f'item with id = {id} not found')
 
+#def get_items(request: HttpRequest) -> HttpResponse:
+#    text = ''
+#    for item in items:
+#       # s =s + f'<li> {item['name']} : {item['quantity']} </li>'
+#       # s = s + '<a href = ./item/'+ str(item['id']) +'><li>наименование: ' + item['name'] + ', количество: ' + str(item['quantity']) + '</li></a>'
+#       # href_text = f"<a href = ./item/{str(item['id'])}></a>"
+#       text = text + f'''<a href = /item/{str(item['id'])}>
+#                        <li>наименование:{item['name']}, количество: {item['quantity']}</li>
+#                       </a>
+#                       '''
+#       # href_text = href_text + f"<a href = ./item/{str(item['id'])}>{text}</a>"
+#   return HttpResponse(f"<ol>{text}</ol>")
 
-def get_items(request: HttpRequest) -> HttpResponse:
-    text = ''
-    for item in items:
-        # s =s + f'<li> {item['name']} : {item['quantity']} </li>'
-        # s = s + '<a href = ./item/'+ str(item['id']) +'><li>наименование: ' + item['name'] + ', количество: ' + str(item['quantity']) + '</li></a>'
-        # href_text = f"<a href = ./item/{str(item['id'])}></a>"
-        text = text + f'''<a href = /item/{str(item['id'])}>
-                        <li>наименование:{item['name']}, количество: {item['quantity']}</li>
-                        </a>
-                        '''
-        # href_text = href_text + f"<a href = ./item/{str(item['id'])}>{text}</a>"
-    return HttpResponse(f"<ol>{text}</ol>")
+def get_items(request:HttpRequest)->HttpResponse:
+    context = {"items":items}
+    return  render(request, 'items.html', context=context)
