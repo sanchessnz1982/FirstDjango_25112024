@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
+from django.template.context_processors import request
 
 # Create your views here.
 # NAME = 'Ващенко Александр Сергеевич'
@@ -12,14 +13,9 @@ def get_fullname() -> str:
     return f'{author["LastName"]} {author["FirstName"]} {author["MiddleName"]}'
 
 
-def home(request: HttpRequest) -> HttpResponse:
-    print(f"{vars(request)}  ==")
-    full_name = get_fullname()
-    text = f"""
-        <h1>"Изучаем django"</h1>
-        <strong>Автор</strong>: <i>{full_name}</i>
-        """
-    return HttpResponse(text)
+def home(requests:HttpRequest)->HttpResponse:
+   return render(requests, 'index.html')
+
 
 
 def about(request: HttpRequest) -> HttpResponse:
