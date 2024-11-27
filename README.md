@@ -16,8 +16,8 @@
     python manage.py shell_plus --ipython
 
 ## выгрузить данные из бд
-python manage.py dumpdata MainApp --indent 4 > ./fixtures/items.json
-python manage.py dumpdata MainApp --indent 4 -o ./fixtures/items.json (win)
+    python manage.py dumpdata MainApp --indent 4 > ./fixtures/items.json
+    python manage.py dumpdata MainApp --indent 4 -o ./fixtures/items.json (win)
 
 ## загрузка данных в бд
 
