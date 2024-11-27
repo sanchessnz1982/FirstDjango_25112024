@@ -14,11 +14,8 @@
     <b>Наименование:</b> {{ item.name }}<br>
     <b>Брэнд:</b> {{ item.brand }}<br>
     <b>Описание:</b> {{ item.description }}<br>
-    {% if item.count == 0 %}
-        <b>Товар отсутствует</b>
-        {% else %}
-        <b>Количество:</b> {{ item.count }}
-    {% endif %}
+    <b>Количество:</b> {{ item.count | default:"Товар отсутствует" }}
+    
     <br>
     <br>
     <br>
