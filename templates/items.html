@@ -65,9 +65,9 @@
         
             <div class="item">
                 <a href="../item/{{ item.id }}">   
-                    <p class="item_name">{{ item.name }}
-                    <p>Брэнд: &nbsp {{ item.brand }}</p>
-                    <p>Описание:&nbsp{{ item.description }}</p>
+                    <p class="item_name">{{ item.name | title }}
+                    <p>Брэнд: &nbsp {{ item.brand | lower }}</p>
+                    <p>Описание:&nbsp{{ item.description | lower}}</p>
                     <p>Количество: &nbsp {{ item.count | default:"Товар отсутствует" }}</p>
                 </a>
            </div>
