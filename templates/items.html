@@ -1,6 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        * {
+    box-sizing: border-box;
+}
+
+.item{
+    width:150pt;
+    height: 100%;
+    margin: 10px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding-top:10px;
+    background: rgba(223, 241, 244, 0.625);
+}   
+
+.item:hover {
+    background: rgb(207, 232, 237);
+    box-shadow: 4px 8px 16px rgba(71, 215, 240);
+}
+
+.item p{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.item_name{
+    font-size: 1.5em;
+    text-align:center;
+ }
+
+ .item a{
+    text-decoration: none;
+    color: black;
+    text-align: justify;
+
+ }
+.items {
+    width: 100%;
+    display: grid;
+    /* Автоматически заполняем на всю ширину grid-контейнера */
+    grid-template-columns: repeat(auto-fill, 200px);
+    max-width: 1200px; /* Ширина grid-контейнера */
+    justify-content: center;
+    justify-items: center; /* Размещаем карточку по центру */
+    column-gap: 30px; /* Отступ между колонками */
+    row-gap: 40px; /* Отступ между рядами */
+    margin: 0 auto;
+  }
+
+    </style>
     <meta charset="UTF-8">
     <title>Items list</title>
 </head>
@@ -9,24 +59,19 @@
         / <a href="/" > Home </a> / <a href="/items" > Items </a>/ <a href="/about" > About </a>
     </header>
 <h2>Список товаров</h2>
-<div>    
-<ol>
-    {% for item in items  %}
-        <li>
-            <div><a href="../item/{{ item.id }}">
-            <b>Наименование:</b> {{ item.name }}<br>
-        <b>Брэнд:</b> {{ item.brand }}<br>
-        <b>Описание:</b> {{ item.description }}<br>
-            {% if item.count == 0 %}
-                <b>Товар отсутствует</b>
-                {% else %}
-                <b>Количество:</b> {{ item.count }}
-            {% endif %}
-            </a></div>
-        </li>
-    {% endfor %}
-</ol>
-</div>
+<div class="items">    
 
+    {% for item in items  %}
+        
+            <div class="item">
+                <a href="../item/{{ item.id }}">   
+                    <p class="item_name">{{ item.name }}
+                    <p>Брэнд: &nbsp {{ item.brand }}</p>
+                    <p>Описание:&nbsp{{ item.description }}</p>
+                    <p>Количество: &nbsp {{ item.count | default:"Товар отсутствует" }}</p>
+                </a>
+           </div>
+    {% endfor %}
+</div>
 </body>
 </html>
