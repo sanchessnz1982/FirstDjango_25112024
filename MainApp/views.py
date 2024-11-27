@@ -1,7 +1,7 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, HttpResponseNotFound
 from MainApp.models import Item
-
 
 # Create your views here.
 # NAME = 'Ващенко Александр Сергеевич'
@@ -14,9 +14,8 @@ def get_fullname() -> str:
     return f'{author["LastName"]} {author["FirstName"]} {author["MiddleName"]}'
 
 
-def home(requests:HttpRequest)->HttpResponse:
-   return render(requests, 'index.html')
-
+def home(requests: HttpRequest) -> HttpResponse:
+    return render(requests, 'index.html')
 
 
 #def about(request: HttpRequest) -> HttpResponse:
@@ -33,18 +32,17 @@ def home(requests:HttpRequest)->HttpResponse:
 
 def about(request: HttpRequest) -> HttpResponse:
     context = dict(FirstName='Александр', MiddleName='Сергеевич', LastName='Ващенко', Telephone='+79227026677',
-              Email='sanchessnz@mail.ru')
+                   Email='sanchessnz@mail.ru')
     return render(request, "about.html", context=context)
 
 
-
-items = [
-    {"id": 1, "name": "Кроссовки abibas", "quantity": 5},
-    {"id": 2, "name": "Куртка кожаная", "quantity": 2},
-    {"id": 5, "name": "Coca-cola 1 литр", "quantity": 12},
-    {"id": 7, "name": "Картофель фри", "quantity": 0},
-    {"id": 8, "name": "Кепка", "quantity": 124},
-]
+# items = [
+#     {"id": 1, "name": "Кроссовки abibas", "quantity": 5},
+#     {"id": 2, "name": "Куртка кожаная", "quantity": 2},
+#     {"id": 5, "name": "Coca-cola 1 литр", "quantity": 12},
+#     {"id": 7, "name": "Картофель фри", "quantity": 0},
+#     {"id": 8, "name": "Кепка", "quantity": 124},
+# ]
 
 
 #def get_item(request: HttpRequest, id: int) -> HttpResponse:
@@ -59,13 +57,17 @@ items = [
 
 def get_item(request: HttpRequest, id: int) -> HttpResponse:
     #item = next((item for item in items if item["id"] == id), None)
-    item = Item.objects.get(id = id)
-    if item is not None:
+    try:
+        item = Item.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'item with id = {id} not found')
+    else:
         context = {
-            "item":item
+            "item": item
         }
         return render(request, "item.html", context)
-    return HttpResponseNotFound(f'item with id = {id} not found')
+
+
 
 #def get_items(request: HttpRequest) -> HttpResponse:
 #    text = ''
@@ -80,7 +82,7 @@ def get_item(request: HttpRequest, id: int) -> HttpResponse:
 #       # href_text = href_text + f"<a href = ./item/{str(item['id'])}>{text}</a>"
 #   return HttpResponse(f"<ol>{text}</ol>")
 
-def get_items(request:HttpRequest)->HttpResponse:
+def get_items(request: HttpRequest) -> HttpResponse:
     items_manager = Item.objects.all()
-    context = {"items":items_manager}
-    return  render(request, 'items.html', context=context)
+    context = {"items": items_manager}
+    return render(request, 'items.html', context=context)
