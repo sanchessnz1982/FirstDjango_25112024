@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>item detail</title>
-</head>
-<body>
-    <header>
-        / <a href="/" > Home </a> / <a href="/items" > Items </a>/ <a href="/about" > About </a>
-    </header>
+
+ {% extends "base.html" %}
+{% block title %}
+	item page
+{% endblock %}
+    {% block content %}
+     {{ block.super }}<br>
     <br>
     <br>
     <br>
-    <b>Наименование:</b> {{ item.name }}<br>
-    <b>Брэнд:</b> {{ item.brand }}<br>
-    <b>Описание:</b> {{ item.description }}<br>
-    <b>Количество:</b> {{ item.count | default:"Товар отсутствует" }}
+            <div class="item">                
+                    <p class="item_name">{{ item.name | title }}
+                    <p>Брэнд: &nbsp {{ item.brand | lower }}</p>
+                    <p>Описание:&nbsp{{ item.description | lower}}</p>
+                    <p>Количество: &nbsp {{ item.count | default:"Товар отсутствует" }}</p>
+            </div>
 
     <br>
     <br>
     <br>
-    <p><a href="/items"> к списку товаров</a></p>
+    <p><a href={% url "items" %}> к списку товаров</a></p>
+{% endblock %}
 </body>
 </html>

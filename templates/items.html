@@ -1,23 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <style>
-        
-    </style>
-    <meta charset="UTF-8">
-    <title>Items list</title>
-</head>
-<body>
-    <header>
-        / <a href="/" > Home </a> / <a href="/items" > Items </a>/ <a href="/about" > About </a>
-    </header>
-<h2>Список товаров</h2>
+ {% extends "base.html" %}
+{% load static %}
+{% block title %}
+	items page
+{% endblock %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+     {{ block.super }}<br>
 <div class="items">
 
     {% for item in items  %}
 
             <div class="item">
-                <a href="../item/{{ item.id }}">
+                <a href= {% url "item-detail" item.id %}>
                     <p class="item_name">{{ item.name | title }}
                     <p>Брэнд: &nbsp {{ item.brand | lower }}</p>
                     <p>Описание:&nbsp{{ item.description | lower}}</p>
@@ -25,6 +24,7 @@
                 </a>
            </div>
     {% endfor %}
+{% endblock %}
 </div>
 </body>
 </html>

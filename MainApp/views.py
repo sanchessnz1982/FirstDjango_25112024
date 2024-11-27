@@ -15,7 +15,9 @@ def get_fullname() -> str:
 
 
 def home(requests: HttpRequest) -> HttpResponse:
-    return render(requests, 'index.html')
+    context = {"author": author,
+               "fullname": get_fullname()}
+    return render(requests, 'index.html', context=context)
 
 
 #def about(request: HttpRequest) -> HttpResponse:

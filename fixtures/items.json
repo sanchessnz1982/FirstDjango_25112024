@@ -1,0 +1,52 @@
+[
+{
+    "model": "MainApp.item",
+    "pk": 1,
+    "fields": {
+        "name": "Кроссовки",
+        "brand": "abibas",
+        "count": 5,
+        "description": "фирменное качество"
+    }
+},
+{
+    "model": "MainApp.item",
+    "pk": 2,
+    "fields": {
+        "name": "Куртка кожанная",
+        "brand": "noname",
+        "count": 2,
+        "description": ""
+    }
+},
+{
+    "model": "MainApp.item",
+    "pk": 3,
+    "fields": {
+        "name": "Coca-cola 1 литр",
+        "brand": "",
+        "count": 12,
+        "description": "утали жажду"
+    }
+},
+{
+    "model": "MainApp.item",
+    "pk": 4,
+    "fields": {
+        "name": "Картофель фри",
+        "brand": "laysasa",
+        "count": 0,
+        "description": ""
+    }
+},
+{
+    "model": "MainApp.item",
+    "pk": 5,
+    "fields": {
+        "name": "Кепка",
+        "brand": "текстиль",
+        "count": 124,
+        "description": "ленинский завод"
+    }
+}
+]
