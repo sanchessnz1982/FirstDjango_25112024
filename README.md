@@ -20,6 +20,8 @@
 
     python manage.py dumpdata MainApp --indent 4 > ./fixtures/items.json
     python manage.py dumpdata MainApp --indent 4 -o ./fixtures/items.json (win)
+    python.exe -X utf8 .\manage.py dumpdata MainApp --indent 4 -o  .\fixtures\items_colors.json (win)
+    python.exe -X utf8 .\manage.py dumpdata MainApp.Item --indent 4 -o  .\fixtures\items.json
 
 ## загрузка данных в бд
 

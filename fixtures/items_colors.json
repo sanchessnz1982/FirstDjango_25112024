@@ -55,5 +55,26 @@
         "description": "ленинский завод",
         "colors": []
     }
+},
+{
+    "model": "MainApp.color",
+    "pk": 1,
+    "fields": {
+        "name": "red"
+    }
+},
+{
+    "model": "MainApp.color",
+    "pk": 2,
+    "fields": {
+        "name": "green"
+    }
+},
+{
+    "model": "MainApp.color",
+    "pk": 3,
+    "fields": {
+        "name": "black"
+    }
 }
 ]
